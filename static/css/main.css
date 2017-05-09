@@ -1,0 +1,18 @@
+h1, h2 {
+    margin: 0
+}
+
+img {
+	max-width: 200px;
+	max-height: 150px;
+}
+
+.kle-box {
+    display: block;
+    float: left;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 8px;
+    height: 15em;
+}
