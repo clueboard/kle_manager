@@ -1,8 +1,9 @@
 FROM python:3.6
 MAINTAINER Zach White <skullydazed@gmail.com>
-
-WORKDIR /
-RUN git clone https://github.com/skullydazed/kle_manager
+EXPOSE 5000
+ADD web.py requirements.txt setup.py /kle_manager/
+ADD static/css/* /kle_manager/static/css/
+ADD templates/* /kle_manager/templates/
 WORKDIR /kle_manager
 RUN pip3 install git+git://github.com/skullydazed/kle2xy.git@master
 RUN pip3 install git+git://github.com/skullydazed/kle2svg.git@master

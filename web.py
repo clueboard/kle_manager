@@ -69,7 +69,7 @@ def fetch_gist(gist_id):
             logging.warning('Removing zero-length cache file %s', cache_file)
             remove(cache_file)
         elif file_age < app.config['CACHE_TIME']:
-            logging.warning('Cache file %s is %ss old, skipping HTTP check.', cache_file, app.config['CACHE_TIME'])
+            logging.warning('Cache file %s is less than %ss old, skipping HTTP check.', cache_file, app.config['CACHE_TIME'])
             return copen(cache_file, encoding='UTF-8').read()
         else:
             headers['If-Modified-Since'] = strftime('%a, %d %b %Y %H:%M:%S %Z', localtime(file_date))
@@ -124,7 +124,7 @@ def list_gists():
         url = 'https://api.github.com/gists'
         payload = {
             'access_token': github_oauth_cookie,
-            'per_page': 10
+            'per_page': 25
         }
 
         if page:
@@ -138,7 +138,7 @@ def list_gists():
             url = url[1:-1] # Remove the surrounding brackets
             rel = rel.split('"')[1]
             pagination[rel] = url
-            url = urlparse(url[1:-1])
+            url = urlparse(url)
             args = parse_qs(url.query)
             pagination[rel] = args['page'][0]
 
