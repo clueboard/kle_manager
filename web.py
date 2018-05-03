@@ -7,7 +7,7 @@ from flask import Flask, redirect, render_template, request, make_response, url_
 from kle2svg import KLE2SVG
 from os.path import exists
 
-from os import stat, remove, makedirs
+from os import environ, stat, remove, makedirs
 from requests import Session
 
 app = Flask(__name__)
@@ -15,14 +15,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Hello Computer The Quick Brown Fox Jumped Over The Lazy Dog'
 app.config['CACHE_DIR'] = 'kle_cache'
 app.config['CACHE_TIME'] = 60
-if True:
-    # Dev settings
-    app.config['GITHUB_CLIENT_ID'] = ''
-    app.config['GITHUB_CLIENT_SECRET'] = ''
-else:
-    # Prod settings
-    app.config['GITHUB_CLIENT_ID'] = ''
-    app.config['GITHUB_CLIENT_SECRET'] = ''
+app.config['GITHUB_CLIENT_ID'] = environ.get('GITHUB_CLIENT_ID')
+app.config['GITHUB_CLIENT_SECRET'] = environ.get('GITHUB_CLIENT_SECRET')
 
 
 ## Functions
