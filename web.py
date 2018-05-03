@@ -116,10 +116,7 @@ def list_gists():
         return redirect(url_for('index'))
 
     # Figure out what page we're on
-    if request.args.get('page'):
-        page = int(request.args.get('page'))
-    else:
-        page = 1
+    page = int(request.args.get('page', 1))
 
     # Pull a list of gists
     with Session() as github_api:
@@ -182,4 +179,4 @@ def callback():
 
 if __name__ == '__main__':
     # Start the webserver
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
