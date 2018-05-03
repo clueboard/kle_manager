@@ -142,6 +142,9 @@ def list_gists():
                 url = urlparse(url)
                 args = parse_qs(url.query)
                 pagination[rel] = args['page'][0]
+                if rel == 'last':
+                    pagination['pages'] = range(1, int(args['page'][0]))
+                    print('pages', pagination['pages'])
 
     KLEs = []
     for gist in gists:

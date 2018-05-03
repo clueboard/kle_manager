@@ -3,29 +3,40 @@
     <title>Where's that darn KLE?</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/kube.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/kube.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
 </head>
 <body>
 
 <div class="row align-center">
-	<div class="col col-8">
-        <h1>Keyboard-Layout-Editor Layout Manager</h1>
-        <div class="page_nav">
-            {% if 'first' in pagination -%}
-            <a href="?page={{pagination['first']}}">&lt;&lt;</a>
-            {% endif %}
-            {% if 'prev' in pagination -%}
-            <a href="?page={{pagination['prev']}}">&lt;</a>
-            {% endif %}
-            | Page {{page}}{% if 'last' in pagination %}/{{pagination['last']}}{% endif %} |
-            {% if 'next' in pagination -%}
-            <a href="?page={{pagination['next']}}">&gt;</a>
-            {% endif %}
-            {% if 'last' in pagination -%}
-            <a href="?page={{pagination['last']}}">&gt;&gt;</a>
-            {% endif %}
-        </div>
+	<div class="col col-10">
+        <center><h1>Keyboard-Layout-Editor Layout Manager</h1></center>
+        {% block navigation %}
+        {% if pagination %}
+        <nav class="pagination align-center">
+            <ul>
+                {% if 'prev' in pagination -%}
+                <li class="prev"><a href="?page={{pagination['prev']}}">Previous</a></li>
+                {% endif -%}
+                <li>
+                    <ul>
+                        {% for pagenum in pagination['pages'] -%}
+                        {% if pagenum == page -%}
+                        <li><span>{{pagenum}}</span></li>
+                        {% else -%}
+                        <li><a href="?page={{pagenum}}">{{pagenum}}</a></li>
+                        {% endif -%}
+                        {% endfor -%}
+                    </ul>
+                </li>
+
+                {% if 'next' in pagination -%}
+                <li class="next"><a href="?page={{pagination['next']}}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif -%}
+        {% endblock %}
     </div>
 </div>
 
@@ -38,19 +49,23 @@
 {% else -%}
 <div class="row align-center">
     <div class="col col-10">
+        <div id="media-grid">
         {% for KLE in KLEs -%}
-        <div class="kle-box">
-            <h2>{{KLE['description']}}</h2>
-            <p>
-                [<a href="https://gist.github.com/{{KLE['login']}}/{{KLE['id']}}">gist</a>]
-                [<a href="http://www.keyboard-layout-editor.com/#/gists/{{KLE['id']}}">KLE</a>]
-            </p>
-            <img src="/render/{{KLE['id']}}">
-        </div>
+            <div>
+                <p class="large">{{KLE['description']}}</p>
+                <p>
+                    [<a href="https://gist.github.com/{{KLE['login']}}/{{KLE['id']}}">gist</a>]
+                    [<a href="http://www.keyboard-layout-editor.com/#/gists/{{KLE['id']}}">KLE</a>]
+                </p>
+                <img src="/render/{{KLE['id']}}">
+            </div>
         {% endfor -%}
+        </div>
     </div>
 </div>
-{% endif %}
+{% endif -%}
+
+{{ self.navigation() }}
 
 </body>
 </html>
