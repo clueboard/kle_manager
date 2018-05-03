@@ -1,14 +1,40 @@
 <!DOCTYPE html>
+<html>
 <head>
-	<title>Where's that damn KLE?</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <title>Where's that darn KLE?</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/kube.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
 </head>
 <body>
+    <div class="row align-center">
+        <div class="col col-6">
+            <h1 class="title">Where's that darn KLE?</h1>
 
-<h1>
-	<a href="https://github.com/login/oauth/authorize?client_id={{config['GITHUB_CLIENT_ID']}}&scope=gist">Login With Github</a>
-</h1>
+                <p class="large">Ever spent several frustrating minutes trying to find the right KLE when you have a bunch stored, or lost them due to a lack of pagination? Worse, ever tried to find the right one in a sea of "Untitled Keyboard Layout"s? My friend, today is your lucky day!</p>
 
+                <p class="large">Just click the button to login using your GitHub account and I'll give you a list of your KLE's, each with a preview so you can figure out which is which.</p>
+        </div>
+    </div>
+    <div class="row align-center">
+        <div class="col col-4">
+            <center>
+                <a class="button large secondary" href="https://github.com/login/oauth/authorize?client_id={{config['GITHUB_CLIENT_ID']}}&scope=gist">Login With Github</a>
+            </center>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row align-center">
+        <div class="col col-6">
+            <p class="small">Written and hosted by <a href="https://clueboard.co" target="_blank">Clueboard</a>. <a href="https://github.com/skullydazed/kle_manager">Source</a> available on GitHub. If you're looking to build a custom 60% or 66% please consider supporting our Open Source by purchasing some or all of your parts from us.</p>
+        </div>
+    </div>
+
+    <!-- Kube JS + jQuery are used for some functionality, but are not required for the basic setup -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='js/kube.min.js')}}"></script>
 </body>
 </html>

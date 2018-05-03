@@ -1,3 +1,23 @@
+body {
+    font-family: Lato, 'Helvetica Neue', sans-serif;
+}
+
+h1.title, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Lato, 'Helvetica Neue', sans-serif;
+}
+
+button, .button {
+    font-family: Lato, 'Helvetica Neue', sans-serif;
+}
+
+input, textarea, select {
+    font-family: Lato, 'Helvetica Neue', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
 h1, h2 {
     margin: 0
 }
@@ -14,5 +34,8 @@ img {
     padding: 1em;
     border: 1px solid black;
     border-radius: 8px;
-    height: 15em;
+}
+
+.kle-box p {
+    margin-bottom: 0;
 }

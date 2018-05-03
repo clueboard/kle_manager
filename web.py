@@ -133,14 +133,15 @@ def list_gists():
         api_request = github_api.get(url, params=payload)
         gists = api_request.json()
         pagination = {}
-        for pair in api_request.headers['Link'].split(','):
-            url, rel = pair.strip().split(';')
-            url = url[1:-1] # Remove the surrounding brackets
-            rel = rel.split('"')[1]
-            pagination[rel] = url
-            url = urlparse(url)
-            args = parse_qs(url.query)
-            pagination[rel] = args['page'][0]
+        if 'Link' in api_request.headers:
+            for pair in api_request.headers['Link'].split(','):
+                url, rel = pair.strip().split(';')
+                url = url[1:-1] # Remove the surrounding brackets
+                rel = rel.split('"')[1]
+                pagination[rel] = url
+                url = urlparse(url)
+                args = parse_qs(url.query)
+                pagination[rel] = args['page'][0]
 
     KLEs = []
     for gist in gists:
@@ -179,4 +180,4 @@ def callback():
 
 if __name__ == '__main__':
     # Start the webserver
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)

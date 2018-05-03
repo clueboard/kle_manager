@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <head>
-  <title>Where's that damn KLE?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <title>Where's that darn KLE?</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/kube.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
 </head>
 <body>
 
-<center>
-	<h1>Keyboard-Layout-Editor Layout Manager</h1>
-	<div class="page_nav">
-		{% if 'first' in pagination -%}
-		<a href="?page={{pagination['first']}}">&lt;&lt;</a>
-		{% endif %}
-		{% if 'prev' in pagination -%}
-		<a href="?page={{pagination['prev']}}">&lt;</a>
-		{% endif %}
-		| Page {{page}}{% if 'last' in pagination %}/{{pagination['last']}}{% endif %} |
-		{% if 'next' in pagination -%}
-		<a href="?page={{pagination['next']}}">&gt;</a>
-		{% endif %}
-		{% if 'last' in pagination -%}
-		<a href="?page={{pagination['last']}}">&gt;&gt;</a>
-		{% endif %}
-	</div>
-</center>
-
-<div class="kle-container">
-	{% for KLE in KLEs -%}
-	<div class="kle-box">
-		<h1>{{KLE['description']}}</h1>
-		<h2>
-			[<a href="https://gist.github.com/{{KLE['login']}}/{{KLE['id']}}">gist</a>]
-			[<a href="http://www.keyboard-layout-editor.com/#/gists/{{KLE['id']}}">KLE</a>]
-		</h2>
-		<img src="/render/{{KLE['id']}}">
-	</div>
-	{% endfor -%}
+<div class="row align-center">
+	<div class="col col-8">
+        <h1>Keyboard-Layout-Editor Layout Manager</h1>
+        <div class="page_nav">
+            {% if 'first' in pagination -%}
+            <a href="?page={{pagination['first']}}">&lt;&lt;</a>
+            {% endif %}
+            {% if 'prev' in pagination -%}
+            <a href="?page={{pagination['prev']}}">&lt;</a>
+            {% endif %}
+            | Page {{page}}{% if 'last' in pagination %}/{{pagination['last']}}{% endif %} |
+            {% if 'next' in pagination -%}
+            <a href="?page={{pagination['next']}}">&gt;</a>
+            {% endif %}
+            {% if 'last' in pagination -%}
+            <a href="?page={{pagination['last']}}">&gt;&gt;</a>
+            {% endif %}
+        </div>
+    </div>
 </div>
+
+{% if not KLEs -%}
+<div class="row align-center">
+    <div class="col col-8">
+        <center><h2>No Keyboard Layout Editor Gists Found!</h2></center>
+    </div>
+</div>
+{% else -%}
+<div class="row align-center">
+    <div class="col col-10">
+        {% for KLE in KLEs -%}
+        <div class="kle-box">
+            <h2>{{KLE['description']}}</h2>
+            <p>
+                [<a href="https://gist.github.com/{{KLE['login']}}/{{KLE['id']}}">gist</a>]
+                [<a href="http://www.keyboard-layout-editor.com/#/gists/{{KLE['id']}}">KLE</a>]
+            </p>
+            <img src="/render/{{KLE['id']}}">
+        </div>
+        {% endfor -%}
+    </div>
+</div>
+{% endif %}
 
 </body>
 </html>
