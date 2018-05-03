@@ -15,7 +15,7 @@
 		{% if 'prev' in pagination -%}
 		<a href="?page={{pagination['prev']}}">&lt;</a>
 		{% endif %}
-		| Page {{page}} |
+		| Page {{page}}{% if 'last' in pagination %}/{{pagination['last']}}{% endif %} |
 		{% if 'next' in pagination -%}
 		<a href="?page={{pagination['next']}}">&gt;</a>
 		{% endif %}

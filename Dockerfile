@@ -5,7 +5,7 @@ WORKDIR /
 RUN git clone https://github.com/skullydazed/kle_manager
 WORKDIR /kle_manager
 RUN pip3 install git+git://github.com/skullydazed/kle2xy.git@master
-RUN pip3 install git+git://github.com/kle2svg.git@master
+RUN pip3 install git+git://github.com/skullydazed/kle2svg.git@master
 RUN pip3 install -r requirements.txt
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
