@@ -144,7 +144,6 @@ def list_gists():
                 pagination[rel] = args['page'][0]
                 if rel == 'last':
                     pagination['pages'] = range(1, int(args['page'][0]))
-                    print('pages', pagination['pages'])
 
     KLEs = []
     for gist in gists:
@@ -173,7 +172,7 @@ def callback():
             if 'access_token' in response:
                 # store access_token from response in a cookie
                 resp = make_response(redirect(url_for('list_gists')))
-                resp.set_cookie('github_oauth_token', response['access_token'])
+                resp.headers['Authorization'] = 'token ' + response['access_token']
                 return resp
             else:
                 app.logger.error("github didn't return an access token")
